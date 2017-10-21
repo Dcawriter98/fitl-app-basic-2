@@ -4,10 +4,19 @@
 		<title>Job Information</title>
 	</head>
 	<body>
+		<!--This is code to create a form to enter job search information-->
 		<h1>Job Information</h1>
 		<form>
 			Date of application:<br>
 			<input type="text" name="applicationdate"><br>
+		</form>
+		<form>
+			Method of contact:<br>
+			<input type="radio" name="contact" value="In person" checked> In person<br>
+			<input type="radio" name="contact" value="Phone or fax"> Phone or fax<br>
+			<input type="radio" name="contact" value="Postal mail"> Postal mail<br>
+			<input type="radio" name="contact" value="E-mail"> E-mail<br>
+			<input type="radio" name="contact" value="Website"> Website<br>
 		</form>
 		<form>
 			Employer name:<br>
@@ -26,8 +35,26 @@
 			<input type="text" name="positiontitle"><br>
 		</form>
 		<form>
-			Contact person and phone number<br>
-			<input type="text" name="contactpersoninfo">
+			Type of work sought<br>(full time, part time, temporary, contract):<br>
+			<input type="text" name="worktype"><br>
+		</form>
+		<form>
+			Contact person and phone number:<br>
+			<input type="text" name="contactpersoninfo"><br>
+		</form>
+		<form>
+			Application submitted:<br>
+			<input type="radio" name="submit" value="Yes" checked> Yes<br>
+			<input type="radio" name="submit" value="No"> No<br>
+			</form>
+			<form>
+			E-mail or website confirmation number:<br>
+			<input type="text" name="confirmation"><br>
+		</form>
+		<form>
+			Results:<br>
+			<textarea name="results" rows="5" cols="15"></textarea>
+			<input type="submit" value="Submit">
 		</form>
 
 	</body>
