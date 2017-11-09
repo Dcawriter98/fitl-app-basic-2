@@ -30,46 +30,39 @@ $jobrecord = array(
 		'confirmation_info' => '',
 	);
 
-if ($id == 1) {
+//Database connection credentials
+$servername = 'localhost';
+$username = 'homestead';
+$password = 'secret';
 
-$jobrecord = array(
+//Create connection
+$connection = new mysqli($servername, $username, $password);
 
-		'app_date' =>'November 3, 2017',
-		'contact' => 'website',
-		'employer_name' => 'International Monetary Fund (IMF)',
-		'employer_address' => '700 19th St. NW; Washington DC 20431',
-		'employer_website' => 'http://www.imf.org',
-		'position' => 'Information Management Assistant',
-		'work_type' => 'Full time',
-		'contact' => 'n/a',
-		'contact_tel' => 'n/a',
-		'app_submit' => 'yes',
-		'confirmation_info' => 'e-mail confirmation received',
-);
-	
-} 
+//Check for an error
+if ($connection->connect_error) {
+	echo 'Connection failed: ' . $connection->connect_error;
+	exit;
+}
 
-if ($id == 2) {
+//Otherwise, connected successfully
+//echo 'Connected successfully!';
 
-	$jobrecord = array(
+//Connect to "fitl" database
+//SELECT * FROM job_records WHERE id = 1
+$connection->select_db('fitl');
 
-		'app_date' =>'October 29, 2017',
-		'contact' => 'website',
-		'employer_name' => 'Association of American Medical Colleges',
-		'employer_address' => '655 K St. NW; Washington DC 20001',
-		'employer_website' => 'http://www.aamc.org',
-		'position' => 'Hospital Policy and Regulatory Specialist',
-		'work_type' => 'Full time',
-		'contact' => 'n/a',
-		'contact_tel' => 'n/a',
-		'app_submit' => 'yes',
-		'confirmation_info' => 'e-mail confirmation received',
-);
+//Query to select the object
+$sql = 'SELECT * FROM job_records WHERE id = ' . $id;
 
-} else {
-	
-	//echo "No job record selected";
-	//this else statement did not work with the echo statement 
+//Execute the query
+$result = $connection->query($sql);
+
+//Check for and retrieve the object
+if ($result->num_rows > 0) {
+	$jobrecord = $result->fetch_assoc();
+	//echo '<pre>';
+	//print_r($jobrecord);
+	//echo '</pre>';
 
 }
 
@@ -81,18 +74,19 @@ if ($id == 2) {
 	<title>Job Applications App</title>
 </head>
 <body>
+	
 <!--Display selected information from php code above-->
 
 <h1>Job Application Record</h1>
 <p>The job record details follow:<br> 
 	<b>Date of application</b> <?php echo $jobrecord['app_date']; ?><br>
-	<b>contact</b> <?php echo $jobrecord['contact']; ?><br>
+	<b>Contact</b> <?php echo $jobrecord['contact_method']; ?><br>
 	<b>Employer name</b> <?php echo $jobrecord['employer_name']; ?><br>
 	<b>Employer address</b> <?php echo $jobrecord['employer_address']; ?><br>
 	<b>Employer website</b> <?php echo $jobrecord['employer_website']; ?><br>
 	<b>Position title</b> <?php echo $jobrecord['position']; ?><br>
 	<b>Work type</b> <?php echo $jobrecord['work_type']; ?><br>
-	<b>Contact person</b> <?php echo $jobrecord['contact']; ?><br>
+	<b>Contact person</b> <?php echo $jobrecord['org_contact']; ?><br>
 	<b>Contact telephone</b> <?php echo $jobrecord['contact_tel']; ?><br>
 	<b>Application submitted</b> <?php echo $jobrecord['app_submit']; ?><br>
 	<b>Confirmation information</b> <?php echo $jobrecord['confirmation_info']; ?><br>
